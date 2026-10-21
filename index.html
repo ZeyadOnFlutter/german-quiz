@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deutsch A1.1 – Artikel Quiz</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #0f172a; }
+    .tab-bar { display: flex; background: #1e293b; padding: 12px 16px 0; gap: 6px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+    .tab-btn { padding: 10px 20px; border: none; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 0.95rem; cursor: pointer; background: #334155; color: #94a3b8; transition: all 0.15s; }
+    .tab-btn:hover { background: #475569; color: #e2e8f0; }
+    .tab-btn.active { background: #f8fafc; color: #1e293b; }
+    .tab-content { display: none; padding: 24px 16px; max-width: 860px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+    .quiz-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+    .word { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+    .options { display: flex; gap: 10px; }
+    .options label { flex: 1; text-align: center; cursor: pointer; padding: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 600; color: #334155; transition: all 0.15s; }
+    .options label:hover { background: #e2e8f0; }
+    input[type="radio"] { display: none; }
+    input[type="radio"]:checked + label { background: #2563eb; color: #fff; border-color: #1d4ed8; }
+    .feedback { margin-top: 10px; font-weight: 600; font-size: 0.9rem; display: none; padding: 6px 10px; border-radius: 4px; }
+    .feedback.correct { background: #dcfce7; color: #15803d; }
+    .feedback.incorrect { background: #fee2e2; color: #b91c1c; }
+    .sticky-bar { position: sticky; top: 52px; z-index: 99; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .score-text { font-weight: 700; color: #2563eb; font-size: 1rem; }
+    .shuffle-btn { padding: 7px 14px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+    .shuffle-btn:hover { background: #0369a1; }
+    .submit-btn { display: block; width: 100%; padding: 14px; background: #16a34a; color: #fff; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 20px; }
+    .submit-btn:hover { background: #15803d; }
+    h2 { font-size: 1.3rem; color: #1e293b; margin-bottom: 4px; }
+    p.sub { color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
+    /* K4 section styles */
+    .section-title { background: #2c3e50; color: #fff; padding: 10px 15px; margin-top: 24px; margin-bottom: 12px; border-radius: 6px; font-size: 1.05rem; font-weight: 700; }
+    .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 600px) { .word-grid { grid-template-columns: 1fr; } .options { flex-wrap: wrap; } }
+    .word-item { background: #fff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e8f0; }
+    .word-item select { padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.95rem; font-weight: 600; }
+    .word-item.correct { background: #d4edda; }
+    .word-item.incorrect { background: #f8d7da; }
+    #score-k4 { text-align: center; font-size: 1.2rem; font-weight: 700; margin-top: 16px; color: #2c3e50; }
+  </style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('k2')">Kapitel 2</button>
+  <button class="tab-btn" onclick="showTab('k3')">Kapitel 3</button>
+  <button class="tab-btn" onclick="showTab('k4')">Kapitel 4</button>
+  <button class="tab-btn" onclick="showTab('k5')">Kapitel 5</button>
+  <button class="tab-btn" onclick="showTab('k6')">Kapitel 6</button>
+</div>
+
+<!-- ===== KAPITEL 2 ===== -->
+<div id="tab-k2" class="tab-content active">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k2">–</span>
+    <button class="shuffle-btn" onclick="shuffleK2()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 2 – Artikel Quiz</h2>
+  <p class="sub">123 Nomen – wähle den richtigen Artikel</p>
+  <form id="form-k2"></form>
+  <button class="submit-btn" onclick="checkK2()">Antworten überprüfen</button>
+</div>
+
+<!-- ===== KAPITEL 3 ===== -->
+<div id="tab-k3" class="tab-content">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k3">–</span>
+    <button class="shuffle-btn" onclick="shuffleK3()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 3 – Artikel Quiz</h2>
+  <p class="sub">Alle Nomen aus Kapitel 3</p>
+  <div id="form-k3"></div>
+  <button class="submit-btn" onclick="checkK3()">Antworten überprüfen</button>
+</div>
+
+<!-- ===== KAPITEL 4 ===== -->
+<div id="tab-k4" class="tab-content">
+  <h2>Kapitel 4 – Artikel Quiz</h2>
+  <p class="sub">Lebensmittel & mehr – wähle den richtigen Artikel</p>
+  <div id="form-k4"></div>
+  <div style="text-align:center; margin-top:24px; display:flex; gap:12px; justify-content:center;">
+    <button class="submit-btn" style="width:auto;padding:12px 28px;background:#27ae60;" onclick="checkK4()">Antworten prüfen</button>
+    <button class="submit-btn" style="width:auto;padding:12px 28px;background:#e74c3c;" onclick="resetK4()">Zurücksetzen</button>
+  </div>
+  <div id="score-k4"></div>
+</div>
+
+<!-- ===== KAPITEL 5 ===== -->
+<div id="tab-k5" class="tab-content">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k5">–</span>
+    <button class="shuffle-btn" onclick="shuffleK5()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 5 – Artikel Quiz</h2>
+  <p class="sub">65 Nomen – Familie, Alltag, Uhrzeit & mehr</p>
+  <form id="form-k5"></form>
+  <button class="submit-btn" onclick="checkK5()">Antworten überprüfen</button>
+</div>
+
+<!-- ===== KAPITEL 6 ===== -->
+<div id="tab-k6" class="tab-content">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k6">–</span>
+    <button class="shuffle-btn" onclick="shuffleK6()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 6 – Artikel Quiz</h2>
+  <p class="sub">78 Nomen – Restaurant, Feste & Freizeit</p>
+  <form id="form-k6"></form>
+  <button class="submit-btn" onclick="checkK6()">Antworten überprüfen</button>
+</div>
+
+<script>
+// ── Tab switching ──────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Generic helpers ────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function renderRadioQuiz(questions, formId) {
+  document.getElementById(formId).innerHTML = questions.map((q, i) => `
+    <div class="quiz-card">
+      <div class="word">${i + 1}. ___ ${q.w}</div>
+      <div class="options">
+        <input type="radio" id="${formId}_q${i}_der" name="${formId}_q${i}" value="der">
+        <label for="${formId}_q${i}_der">der</label>
+        <input type="radio" id="${formId}_q${i}_die" name="${formId}_q${i}" value="die">
+        <label for="${formId}_q${i}_die">die</label>
+        <input type="radio" id="${formId}_q${i}_das" name="${formId}_q${i}" value="das">
+        <label for="${formId}_q${i}_das">das</label>
+      </div>
+      <div class="feedback" id="${formId}_fb${i}"></div>
+    </div>`).join('');
+}
+
+function checkRadioQuiz(questions, formId, scoreId) {
+  let score = 0;
+  questions.forEach((q, i) => {
+    const sel = document.querySelector(`input[name="${formId}_q${i}"]:checked`);
+    const fb = document.getElementById(`${formId}_fb${i}`);
+    fb.style.display = 'block';
+    if (sel && sel.value === q.a) {
+      score++;
+      fb.className = 'feedback correct';
+      fb.innerHTML = `✓ Richtig! (${q.a} ${q.w})`;
+    } else {
+      fb.className = 'feedback incorrect';
+      fb.innerHTML = `✗ Falsch! Richtig: <strong>${q.a}</strong> ${q.w}`;
+    }
+  });
+  document.getElementById(scoreId).innerText = `${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ══════════════════════════════════════════════════════════
+// KAPITEL 2
+// ══════════════════════════════════════════════════════════
+const rawK2 = [
+  {w:"Freundin",a:"die"},{w:"Geld",a:"das"},{w:"Stunde",a:"die"},{w:"Tag",a:"der"},
+  {w:"Krankenhaus",a:"das"},{w:"Montag",a:"der"},{w:"Tablette",a:"die"},{w:"Foto",a:"das"},
+  {w:"Notiz",a:"die"},{w:"Information",a:"die"},{w:"Mädchen",a:"das"},{w:"Monat",a:"der"},
+  {w:"Zahnarzt",a:"der"},{w:"Bücher (Plural)",a:"die"},{w:"Hobby",a:"das"},{w:"Wörterbuch",a:"das"},
+  {w:"Frau",a:"die"},{w:"Schlüssel",a:"der"},{w:"Auto",a:"das"},{w:"Rechnung",a:"die"},
+  {w:"Seminar",a:"das"},{w:"Arzt",a:"der"},{w:"Termin",a:"der"},{w:"Stift",a:"der"},
+  {w:"Fußball",a:"der"},{w:"Familienname",a:"der"},{w:"Ernährungsberaterin",a:"die"},{w:"Formular",a:"das"},
+  {w:"Nacht",a:"die"},{w:"Spritze",a:"die"},{w:"Handwerkerin",a:"die"},{w:"Abend",a:"der"},
+  {w:"Geburtsdatum",a:"das"},{w:"Leute (Plural)",a:"die"},{w:"Woche",a:"die"},{w:"Arbeit",a:"die"},
+  {w:"Café",a:"das"},{w:"Job",a:"der"},{w:"Journalist",a:"der"},{w:"Kind",a:"das"},
+  {w:"Vorname",a:"der"},{w:"Kollegin",a:"die"},{w:"Mitternacht",a:"die"},{w:"Brötchen",a:"das"},
+  {w:"Mittag",a:"der"},{w:"Museen (Plural)",a:"die"},{w:"Tageszeiten (Plural)",a:"die"},{w:"Studentin",a:"die"},
+  {w:"Wochenende",a:"das"},{w:"Fahrrad / Rad",a:"das"},{w:"Straße",a:"die"},{w:"Ort",a:"der"},
+  {w:"Patient",a:"der"},{w:"Informatiker",a:"der"},{w:"Lehrer",a:"der"},{w:"Krankenschwester",a:"die"},
+  {w:"Polizist",a:"der"},{w:"Dienstag",a:"der"},{w:"Notizen (Plural)",a:"die"},{w:"Mechanikerin",a:"die"},
+  {w:"Firma",a:"die"},{w:"Student",a:"der"},{w:"Buch",a:"das"},{w:"Mensch",a:"der"},
+  {w:"Computer",a:"der"},{w:"Geburtsort",a:"der"},{w:"Musik",a:"die"},{w:"Zimmer",a:"das"},
+  {w:"Medikament",a:"das"},{w:"Wochentage (Plural)",a:"die"},{w:"Krankenpflegerin",a:"die"},{w:"Kellner",a:"der"},
+  {w:"Informatikerin",a:"die"},{w:"Morgen",a:"der"},{w:"Glas",a:"das"},{w:"Verabredung",a:"die"},
+  {w:"Stunden (Plural)",a:"die"},{w:"Donnerstag",a:"der"},{w:"Koch",a:"der"},{w:"Krankenpfleger",a:"der"},
+  {w:"Mittwoch",a:"der"},{w:"Museum",a:"das"},{w:"Zahnärztin",a:"die"},{w:"Kranke",a:"der"},
+  {w:"Schule",a:"die"},{w:"Freund",a:"der"},{w:"Beruf",a:"der"},{w:"Wochentag",a:"der"},
+  {w:"Taxifahrer",a:"der"},{w:"Kino",a:"das"},{w:"Freitag",a:"der"},{w:"Freunde (Plural)",a:"die"},
+  {w:"Köchin",a:"die"},{w:"Verkäuferin",a:"die"},{w:"Hobbys (Plural)",a:"die"},{w:"Vormittag",a:"der"},
+  {w:"Nachmittag",a:"der"},{w:"Samstag",a:"der"},{w:"Ärztin",a:"die"},{w:"Sonntag",a:"der"},
+  {w:"Universität",a:"die"},{w:"Wohnort",a:"der"},{w:"Minuten (Plural)",a:"die"},{w:"Kurs",a:"der"},
+  {w:"Jahr",a:"das"},{w:"Monate (Plural)",a:"die"},{w:"Berufe (Plural)",a:"die"},{w:"Kollege",a:"der"},
+  {w:"Firmen (Plural)",a:"die"},{w:"Hausnummer",a:"die"},{w:"Postleitzahl",a:"die"},{w:"Adresse",a:"die"},
+  {w:"Beispiel",a:"das"},{w:"Theater",a:"das"},{w:"Schwimmbad",a:"das"},{w:"Nachname",a:"der"},
+  {w:"Restaurant",a:"das"},{w:"Taxi",a:"das"},{w:"Moment",a:"der"},{w:"Mann",a:"der"},
+  {w:"Friseur",a:"der"},{w:"Friseurin",a:"die"}
+];
+let k2 = [...rawK2];
+function shuffleK2() { shuffle(k2); renderRadioQuiz(k2, 'form-k2'); document.getElementById('score-k2').innerText='–'; }
+function checkK2() { checkRadioQuiz(k2, 'form-k2', 'score-k2'); }
+shuffleK2();
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// KAPITEL 3
+// ══════════════════════════════════════════════════════════
+const rawK3 = [
+  {w:"Stadt",a:"die"},{w:"Stadttour",a:"die"},{w:"Berg",a:"der"},{w:"Konzert",a:"das"},
+  {w:"Konzerthaus",a:"das"},{w:"Rathaus",a:"das"},{w:"Zug",a:"der"},{w:"Zeit",a:"die"},
+  {w:"Bauzeit",a:"die"},{w:"Besucher",a:"der"},{w:"Schiff",a:"das"},{w:"Mitte",a:"die"},
+  {w:"Fahrt",a:"die"},{w:"Taxifahrt",a:"die"},{w:"Taxifahrer",a:"der"},{w:"Weg",a:"der"},
+  {w:"Kunsthalle",a:"die"},{w:"Verkehrsmittel",a:"das"},{w:"Taxi",a:"das"},{w:"Bus",a:"der"},
+  {w:"Motorrad",a:"das"},{w:"Auto",a:"das"},{w:"U-Bahn",a:"die"},{w:"Straßenbahn",a:"die"},
+  {w:"Tram",a:"die"},{w:"S-Bahn",a:"die"},{w:"Flugzeug",a:"das"},{w:"Fahrrad",a:"das"},
+  {w:"Boot",a:"das"},{w:"Fähre",a:"die"},{w:"Glück",a:"das"},{w:"Pech",a:"das"},
+  {w:"Fahrkarte",a:"die"},{w:"Beschreibung",a:"die"},{w:"Wegbeschreibung",a:"die"},{w:"Richtungen (Plural)",a:"die"},
+  {w:"Monat",a:"der"},{w:"Jahreszeiten (Plural)",a:"die"},{w:"Mensch",a:"der"},{w:"Haus",a:"das"},
+  {w:"Kirche",a:"die"},{w:"Turm",a:"der"},{w:"Hotel",a:"das"},{w:"Brücke",a:"die"},
+  {w:"Park",a:"der"},{w:"Markt",a:"der"},{w:"Bahnhof",a:"der"},{w:"Hafen",a:"der"},
+  {w:"See",a:"der"},{w:"Fluss",a:"der"},{w:"Meer",a:"das"},{w:"Station",a:"die"},
+  {w:"Ort",a:"der"},{w:"Meter",a:"der"},{w:"Kilometer",a:"der"},{w:"Kosten (Plural)",a:"die"},
+  {w:"Euro",a:"der"},{w:"Publikum",a:"das"},{w:"Besucherin",a:"die"},{w:"Gast",a:"der"},
+  {w:"Orchester",a:"das"},{w:"Chor",a:"der"},{w:"Konzertkarte",a:"die"},{w:"Film",a:"der"},
+  {w:"Schauspieler",a:"der"},{w:"Schauspielerin",a:"die"},{w:"Star",a:"der"},{w:"Regisseur",a:"der"},
+  {w:"Regisseurin",a:"die"},{w:"Ausstellung",a:"die"},{w:"Jahreszeit",a:"die"},{w:"Frühling",a:"der"},
+  {w:"Sommer",a:"der"},{w:"Herbst",a:"der"},{w:"Winter",a:"der"},{w:"Januar",a:"der"},
+  {w:"Februar",a:"der"},{w:"März",a:"der"},{w:"April",a:"der"},{w:"Mai",a:"der"},
+  {w:"Juni",a:"der"},{w:"Juli",a:"der"},{w:"August",a:"der"},{w:"September",a:"der"},
+  {w:"Oktober",a:"der"},{w:"November",a:"der"},{w:"Dezember",a:"der"},{w:"Plan",a:"der"},
+  {w:"Start",a:"der"},{w:"Ziel",a:"das"},{w:"Event",a:"das"},{w:"Festival",a:"das"},
+  {w:"Ticket",a:"das"},{w:"Gruppe",a:"die"},{w:"Bild",a:"das"},{w:"Plakat",a:"das"},
+  {w:"Test",a:"der"},{w:"Welt",a:"die"},{w:"Lösung",a:"die"},{w:"Mal",a:"das"}
+];
+let k3 = [...rawK3];
+function shuffleK3() { shuffle(k3); renderRadioQuiz(k3, 'form-k3'); document.getElementById('score-k3').innerText='–'; }
+function checkK3() { checkRadioQuiz(k3, 'form-k3', 'score-k3'); }
+shuffleK3();
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// KAPITEL 4
+// ══════════════════════════════════════════════════════════
+const k4Data = [
+  { section:"Obst & Gemüse", words:[
+    {noun:"Obst (Sg.)",answer:"das"},{noun:"Apfel (=)",answer:"der"},{noun:"Banane (-n)",answer:"die"},
+    {noun:"Birne (-n)",answer:"die"},{noun:"Gemüse (Sg.)",answer:"das"},{noun:"Gurke (-n)",answer:"die"},
+    {noun:"Kartoffel (-n)",answer:"die"},{noun:"Salat (-e)",answer:"der"},{noun:"Tomate (-n)",answer:"die"},
+    {noun:"Olive (-n)",answer:"die"},{noun:"Zwiebel (-n)",answer:"die"}
+  ]},
+  { section:"Backwaren & Fleischprodukte", words:[
+    {noun:"Brot (-e)",answer:"das"},{noun:"Brötchen (-)",answer:"das"},{noun:"Keks (-e)",answer:"der"},
+    {noun:"Kuchen (-)",answer:"der"},{noun:"Fleisch (Sg.)",answer:"das"},{noun:"Hähnchen (-)",answer:"das"},
+    {noun:"Schinken (-)",answer:"der"},{noun:"Wurst (=e)",answer:"die"},{noun:"Würstchen (-)",answer:"das"}
+  ]},
+  { section:"Milchprodukte & andere Lebensmittel", words:[
+    {noun:"Butter (Sg.)",answer:"die"},{noun:"Joghurt (-s)",answer:"der"},{noun:"Käse (Sg.)",answer:"der"},
+    {noun:"Milch (Sg.)",answer:"die"},{noun:"Sahne (Sg.)",answer:"die"},{noun:"Pfeffer (Sg.)",answer:"der"},
+    {noun:"Salz (-e)",answer:"das"},{noun:"Zucker (Sg.)",answer:"der"},{noun:"Essig (-e)",answer:"der"},
+    {noun:"Öl (-e)",answer:"das"},{noun:"Nudel (-n)",answer:"die"},{noun:"Reis (Sg.)",answer:"der"},
+    {noun:"Ei (=er)",answer:"das"},{noun:"Fisch (-e)",answer:"der"},{noun:"Schokolade (-n)",answer:"die"},
+    {noun:"Marmelade (-n)",answer:"die"},{noun:"Müsli (-s)",answer:"das"}
+  ]},
+  { section:"Getränke", words:[
+    {noun:"Getränk (-e)",answer:"das"},{noun:"Wasser (-)",answer:"das"},{noun:"Saft (=e)",answer:"der"},
+    {noun:"Limonade (-n)",answer:"die"},{noun:"Cola (-s)",answer:"die"},{noun:"Kaffee (-s)",answer:"der"},
+    {noun:"Tee (-s)",answer:"der"}
+  ]},
+  { section:"Geschäfte, Verpackungen & Maße", words:[
+    {noun:"Bäckerei (-en)",answer:"die"},{noun:"Markt (=e)",answer:"der"},{noun:"Metzgerei (-en)",answer:"die"},
+    {noun:"Supermarkt (=e)",answer:"der"},{noun:"Packung (-en)",answer:"die"},{noun:"Becher (-)",answer:"der"},
+    {noun:"Dose (-n)",answer:"die"},{noun:"Stück (-e)",answer:"das"},{noun:"Tüte (-n)",answer:"die"},
+    {noun:"Gramm (g)",answer:"das"},{noun:"Kilo(gramm) (kg)",answer:"das"},{noun:"Liter (l)",answer:"der"},
+    {noun:"Einkaufswagen (-)",answer:"der"}
+  ]},
+  { section:"Preise, Mahlzeiten & Gerichte", words:[
+    {noun:"Preis (-e)",answer:"der"},{noun:"Kassenzettel (-)",answer:"der"},{noun:"Essen (-)",answer:"das"},
+    {noun:"Frühstück (-e)",answer:"das"},{noun:"Mittagessen (-)",answer:"das"},{noun:"Abendessen (-)",answer:"das"},
+    {noun:"Gericht (-e)",answer:"das"},{noun:"Suppe (-n)",answer:"die"},{noun:"Pizza (-s / Pizzen)",answer:"die"},
+    {noun:"Pommes frites (Pl.)",answer:"die"}
+  ]},
+  { section:"Tageszeiten & Anderes", words:[
+    {noun:"Morgen (-)",answer:"der"},{noun:"Mittag (-e)",answer:"der"},{noun:"Nachmittag (-e)",answer:"der"},
+    {noun:"Abend (-e)",answer:"der"},{noun:"Nacht (=e)",answer:"die"},{noun:"Einladung (-en)",answer:"die"},
+    {noun:"Kantine (-n)",answer:"die"}
+  ]}
+];
+
+function buildK4() {
+  const container = document.getElementById('form-k4');
+  let html = ''; let idx = 0;
+  k4Data.forEach(sec => {
+    html += `<div class="section-title">${sec.section}</div><div class="word-grid">`;
+    sec.words.forEach(item => {
+      html += `<div class="word-item" id="k4item-${idx}">
+        <span>${item.noun}</span>
+        <select id="k4sel-${idx}" data-answer="${item.answer}">
+          <option value="">--Artikel--</option>
+          <option value="der">der</option>
+          <option value="die">die</option>
+          <option value="das">das</option>
+        </select></div>`;
+      idx++;
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function checkK4() {
+  let total = 0, correct = 0;
+  for (let i = 0; ; i++) {
+    const sel = document.getElementById(`k4sel-${i}`);
+    const box = document.getElementById(`k4item-${i}`);
+    if (!sel) break;
+    total++;
+    box.classList.remove('correct','incorrect');
+    if (sel.value === sel.getAttribute('data-answer')) { correct++; box.classList.add('correct'); }
+    else { box.classList.add('incorrect'); }
+  }
+  document.getElementById('score-k4').innerHTML = `Du hast ${correct} von ${total} richtig!`;
+}
+
+function resetK4() {
+  for (let i = 0; ; i++) {
+    const sel = document.getElementById(`k4sel-${i}`);
+    const box = document.getElementById(`k4item-${i}`);
+    if (!sel) break;
+    sel.value = '';
+    box.classList.remove('correct','incorrect');
+  }
+  document.getElementById('score-k4').innerHTML = '';
+}
+buildK4();
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// KAPITEL 5
+// ══════════════════════════════════════════════════════════
+const rawK5 = [
+  {w:"Familie",a:"die"},{w:"Großeltern (Plural)",a:"die"},{w:"Oma",a:"die"},{w:"Großmutter",a:"die"},
+  {w:"Opa",a:"der"},{w:"Großvater",a:"der"},{w:"Eltern (Plural)",a:"die"},{w:"Mutter",a:"die"},
+  {w:"Vater",a:"der"},{w:"Kinder (Plural)",a:"die"},{w:"Sohn",a:"der"},{w:"Tochter",a:"die"},
+  {w:"Geschwister (Plural)",a:"die"},{w:"Bruder",a:"der"},{w:"Schwester",a:"die"},{w:"Enkelkinder (Plural)",a:"die"},
+  {w:"Enkel",a:"der"},{w:"Enkelsohn",a:"der"},{w:"Enkelin",a:"die"},{w:"Enkeltochter",a:"die"},
+  {w:"Tante",a:"die"},{w:"Onkel",a:"der"},{w:"Cousin",a:"der"},{w:"Cousine",a:"die"},
+  {w:"Baby",a:"das"},{w:"Kind",a:"das"},{w:"Junge",a:"der"},{w:"Mädchen",a:"das"},
+  {w:"Mann",a:"der"},{w:"Frau",a:"die"},{w:"Verwandte",a:"der"},{w:"Routine",a:"die"},
+  {w:"Tagesablauf",a:"der"},{w:"Alltag",a:"der"},{w:"Mensa",a:"die"},{w:"Kantine",a:"die"},
+  {w:"Bibliothek",a:"die"},{w:"Musikschule",a:"die"},{w:"Hausaufgabe",a:"die"},{w:"Zeitung",a:"die"},
+  {w:"Homepage",a:"die"},{w:"Stress",a:"der"},{w:"Nachricht",a:"die"},{w:"Uhr",a:"die"},
+  {w:"Uhrzeit",a:"die"},{w:"Sekunde",a:"die"},{w:"Minute",a:"die"},{w:"Stunde",a:"die"},
+  {w:"Verspätung",a:"die"},{w:"Zeit",a:"die"},{w:"Party",a:"die"},{w:"Bar",a:"die"},
+  {w:"Kalender",a:"der"},{w:"Besprechung",a:"die"},{w:"Termin",a:"der"},{w:"Trompete",a:"die"},
+  {w:"Unterricht",a:"der"},{w:"Sport",a:"der"},{w:"Ball",a:"der"},{w:"Motorrad",a:"das"},
+  {w:"Geige",a:"die"},{w:"Saxofon",a:"das"},{w:"Hund",a:"der"},{w:"Idee",a:"die"},
+  {w:"Problem",a:"das"},{w:"Praxis",a:"die"}
+];
+let k5 = [...rawK5];
+function shuffleK5() { shuffle(k5); renderRadioQuiz(k5, 'form-k5'); document.getElementById('score-k5').innerText='–'; }
+function checkK5() { checkRadioQuiz(k5, 'form-k5', 'score-k5'); }
+shuffleK5();
+
+// ══════════════════════════════════════════════════════════
+// KAPITEL 6
+// ══════════════════════════════════════════════════════════
+const rawK6 = [
+  {w:"Schild",a:"das"},{w:"Bestellung",a:"die"},{w:"Achtung",a:"die"},{w:"Speisekarte",a:"die"},
+  {w:"Menü",a:"das"},{w:"Kellner",a:"der"},{w:"Gast",a:"der"},{w:"Durst",a:"der"},
+  {w:"Hunger",a:"der"},{w:"Bärenhunger",a:"der"},{w:"Rechnung",a:"die"},{w:"Trinkgeld",a:"das"},
+  {w:"Schorle",a:"die"},{w:"Eis",a:"das"},{w:"Salami",a:"die"},{w:"Schnitzel",a:"das"},
+  {w:"Tomatensuppe",a:"die"},{w:"Sandwich",a:"das"},{w:"Gabel",a:"die"},{w:"Messer",a:"das"},
+  {w:"Löffel",a:"der"},{w:"Glas",a:"das"},{w:"Tasse",a:"die"},{w:"Teller",a:"der"},
+  {w:"Serviette",a:"die"},{w:"Tisch",a:"der"},{w:"Kuchen",a:"der"},{w:"Tee",a:"der"},
+  {w:"Restaurant",a:"das"},{w:"Café",a:"das"},{w:"Kneipe",a:"die"},{w:"Kaffeehaus",a:"das"},
+  {w:"Lokal",a:"das"},{w:"Biergarten",a:"der"},{w:"Bank",a:"die"},{w:"Selbstbedienung",a:"die"},
+  {w:"Freizeitaktivitäten (Plural)",a:"die"},{w:"Freizeit",a:"die"},{w:"Urlaub",a:"der"},{w:"Lust",a:"die"},
+  {w:"Geburtstag",a:"der"},{w:"Überraschung",a:"die"},{w:"Geschenk",a:"das"},{w:"Geburtsdatum",a:"das"},
+  {w:"Zwilling",a:"der"},{w:"Zwillinge (Plural)",a:"die"},{w:"Ausflug",a:"der"},{w:"Fahrradtour",a:"die"},
+  {w:"Picknick",a:"das"},{w:"Fitnessstudio",a:"das"},{w:"Fest",a:"das"},{w:"Datum",a:"das"},
+  {w:"Spaß",a:"der"},{w:"Ereignis",a:"das"},{w:"Mail",a:"die"},{w:"Betreff",a:"der"},
+  {w:"Anrede",a:"die"},{w:"Unterschrift",a:"die"},{w:"Grüße (Plural)",a:"die"},{w:"Programm",a:"das"},
+  {w:"Treffpunkt",a:"der"},{w:"Eintritt",a:"der"},{w:"Anmeldung",a:"die"},{w:"Karte",a:"die"},
+  {w:"Spielplatz",a:"der"},{w:"Dekoration",a:"die"},{w:"Süßigkeiten (Plural)",a:"die"},{w:"Hund",a:"der"},
+  {w:"Nachbarn (Plural)",a:"die"},{w:"Kerzen (Plural)",a:"die"},{w:"Gäste (Plural)",a:"die"},{w:"Cola",a:"die"},
+  {w:"Essen",a:"das"},{w:"Getränke (Plural)",a:"die"},{w:"Nudeln (Plural)",a:"die"},{w:"Müsli",a:"das"},
+  {w:"Saft",a:"das"},{w:"Obst",a:"das"}
+];
+let k6 = [...rawK6];
+function shuffleK6() { shuffle(k6); renderRadioQuiz(k6, 'form-k6'); document.getElementById('score-k6').innerText='–'; }
+function checkK6() { checkRadioQuiz(k6, 'form-k6', 'score-k6'); }
+shuffleK6();
+</script>
+
+</body>
+</html>
