@@ -50,6 +50,7 @@
   <button class="tab-btn" onclick="showTab('k4')">Kapitel 4</button>
   <button class="tab-btn" onclick="showTab('k5')">Kapitel 5</button>
   <button class="tab-btn" onclick="showTab('k6')">Kapitel 6</button>
+  <button class="tab-btn" onclick="showTab('k7')">Kapitel 7</button>
 </div>
 
 <!-- ===== KAPITEL 2 ===== -->
@@ -340,6 +341,18 @@ function resetK4() {
 buildK4();
 </script>
 
+<!-- ===== KAPITEL 7 ===== -->
+<div id="tab-k7" class="tab-content">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k7">–</span>
+    <button class="shuffle-btn" onclick="shuffleK7()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 7 – Artikel Quiz</h2>
+  <p class="sub">76 Nomen – Arbeit, Medien, Bank, Briefe & mehr</p>
+  <form id="form-k7"></form>
+  <button class="submit-btn" onclick="checkK7()">Antworten überprüfen</button>
+</div>
+
 <script>
 // ══════════════════════════════════════════════════════════
 // KAPITEL 5
@@ -397,6 +410,35 @@ let k6 = [...rawK6];
 function shuffleK6() { shuffle(k6); renderRadioQuiz(k6, 'form-k6'); document.getElementById('score-k6').innerText='–'; }
 function checkK6() { checkRadioQuiz(k6, 'form-k6', 'score-k6'); }
 shuffleK6();
+
+// ══════════════════════════════════════════════════════════
+// KAPITEL 7
+// ══════════════════════════════════════════════════════════
+const rawK7 = [
+  {w:"Arbeitsalltag",a:"der"},{w:"Bäcker",a:"der"},{w:"Zahnarzt",a:"der"},{w:"Hausmeister",a:"der"},
+  {w:"Mitarbeiter",a:"der"},{w:"Mitarbeiterin",a:"die"},{w:"Praktikum",a:"das"},{w:"Bericht",a:"der"},
+  {w:"Präsentation",a:"die"},{w:"Fehler",a:"der"},{w:"Pause",a:"die"},{w:"Urlaub",a:"der"},
+  {w:"Praktika (Plural)",a:"die"},{w:"Ausbildung",a:"die"},{w:"Medien (Plural)",a:"die"},{w:"Datei",a:"die"},
+  {w:"Drucker",a:"der"},{w:"Passwort",a:"das"},{w:"Blog",a:"der"},{w:"Akku",a:"der"},
+  {w:"WLAN",a:"das"},{w:"Netz",a:"das"},{w:"Computer",a:"der"},{w:"Text",a:"der"},
+  {w:"Konversation / Gespräch",a:"das"},{w:"Internet",a:"das"},{w:"Video",a:"das"},{w:"Podcast",a:"der"},
+  {w:"Bank",a:"die"},{w:"Automat",a:"der"},{w:"Konto",a:"das"},{w:"Kontonummer",a:"die"},
+  {w:"Kreditkarte",a:"die"},{w:"Geld",a:"das"},{w:"Konten (Plural)",a:"die"},{w:"Überweisung",a:"die"},
+  {w:"Barzahlung",a:"die"},{w:"Brief",a:"der"},{w:"Post",a:"die"},{w:"Absender",a:"der"},
+  {w:"Empfänger",a:"der"},{w:"Unterschrift",a:"die"},{w:"E-Mail",a:"die"},{w:"Anrede",a:"die"},
+  {w:"Grüße (Plural)",a:"die"},{w:"Betreff",a:"der"},{w:"Mitglied",a:"das"},{w:"Kontakt",a:"der"},
+  {w:"Lied",a:"das"},{w:"Musikgruppe",a:"die"},{w:"Spezialität",a:"die"},{w:"Religion",a:"die"},
+  {w:"Sprachinstitut",a:"das"},{w:"Besprechung / Meeting",a:"die"},{w:"Kunde",a:"der"},{w:"Kundin",a:"die"},
+  {w:"Small Talk",a:"der"},{w:"Leben",a:"das"},{w:"Aufzug",a:"der"},{w:"Politik",a:"die"},
+  {w:"Serie",a:"die"},{w:"Erwachsene",a:"der"},{w:"Nachbar",a:"der"},{w:"Nachbarin",a:"die"},
+  {w:"Paket",a:"das"},{w:"Kollege",a:"der"},{w:"Kollegin",a:"die"},{w:"Chefin",a:"die"},
+  {w:"Chef",a:"der"},{w:"Geschenk",a:"das"},{w:"Stift",a:"der"},{w:"Auto",a:"das"},
+  {w:"Freunde (Plural)",a:"die"},{w:"Arbeit",a:"die"},{w:"Krankenhaus",a:"das"},{w:"Ärztin",a:"die"}
+];
+let k7 = [...rawK7];
+function shuffleK7() { shuffle(k7); renderRadioQuiz(k7, 'form-k7'); document.getElementById('score-k7').innerText='–'; }
+function checkK7() { checkRadioQuiz(k7, 'form-k7', 'score-k7'); }
+shuffleK7();
 </script>
 
 </body>
