@@ -51,6 +51,7 @@
   <button class="tab-btn" onclick="showTab('k5')">Kapitel 5</button>
   <button class="tab-btn" onclick="showTab('k6')">Kapitel 6</button>
   <button class="tab-btn" onclick="showTab('k7')">Kapitel 7</button>
+  <button class="tab-btn" onclick="showTab('k8')">Kapitel 8</button>
 </div>
 
 <!-- ===== KAPITEL 2 ===== -->
@@ -341,6 +342,18 @@ function resetK4() {
 buildK4();
 </script>
 
+<!-- ===== KAPITEL 8 ===== -->
+<div id="tab-k8" class="tab-content">
+  <div class="sticky-bar">
+    <span class="score-text" id="score-k8">–</span>
+    <button class="shuffle-btn" onclick="shuffleK8()">🔀 Mischen</button>
+  </div>
+  <h2>Kapitel 8 – Artikel Quiz</h2>
+  <p class="sub">Gesundheit, Körperteile, Unfall, Arztbesuch & Kurs</p>
+  <form id="form-k8"></form>
+  <button class="submit-btn" onclick="checkK8()">Antworten überprüfen</button>
+</div>
+
 <!-- ===== KAPITEL 7 ===== -->
 <div id="tab-k7" class="tab-content">
   <div class="sticky-bar">
@@ -439,6 +452,36 @@ let k7 = [...rawK7];
 function shuffleK7() { shuffle(k7); renderRadioQuiz(k7, 'form-k7'); document.getElementById('score-k7').innerText='–'; }
 function checkK7() { checkRadioQuiz(k7, 'form-k7', 'score-k7'); }
 shuffleK7();
+
+// ══════════════════════════════════════════════════════════
+// KAPITEL 8
+// ══════════════════════════════════════════════════════════
+const rawK8 = [
+  {w:"Sportlerin",a:"die"},{w:"Süßigkeit",a:"die"},{w:"Alter",a:"das"},{w:"Größe",a:"die"},
+  {w:"Gewicht",a:"das"},{w:"Gesundheit",a:"die"},{w:"Körper",a:"der"},{w:"Gehirn",a:"das"},
+  {w:"Kopf",a:"der"},{w:"Hals",a:"der"},{w:"Bauch",a:"der"},{w:"Rücken",a:"der"},
+  {w:"Arm",a:"der"},{w:"Hand",a:"die"},{w:"Finger",a:"der"},{w:"Bein",a:"das"},
+  {w:"Knie",a:"das"},{w:"Fuß",a:"der"},{w:"Gesicht",a:"das"},{w:"Mund",a:"der"},
+  {w:"Zahn",a:"der"},{w:"Auge",a:"das"},{w:"Ohr",a:"das"},{w:"Nase",a:"die"},
+  {w:"Haar",a:"das"},{w:"Körperteil",a:"der"},{w:"Sinne (Plural)",a:"die"},{w:"Haut",a:"die"},
+  {w:"Spiegel",a:"der"},{w:"Helm",a:"der"},{w:"Badezimmer",a:"das"},{w:"Personenwaage",a:"die"},
+  {w:"Unfall",a:"der"},{w:"Verletzte",a:"der"},{w:"Verletzung",a:"die"},{w:"Wunde",a:"die"},
+  {w:"Schmerz",a:"der"},{w:"Schmerzen (Plural)",a:"die"},{w:"Verband",a:"der"},{w:"Pflaster",a:"das"},
+  {w:"Salbe",a:"die"},{w:"Rezept",a:"das"},{w:"Apotheke",a:"die"},{w:"Kontrolle",a:"die"},
+  {w:"Tablette",a:"die"},{w:"Saft",a:"der"},{w:"Tropfen",a:"der"},{w:"Spritze",a:"die"},
+  {w:"Medikament",a:"das"},{w:"Doktor",a:"der"},{w:"Krankheit",a:"die"},{w:"Schnupfen",a:"der"},
+  {w:"Fieber",a:"das"},{w:"Ergebnis",a:"das"},{w:"Notarzt",a:"der"},{w:"Physiotherapeutin",a:"die"},
+  {w:"Übung",a:"die"},{w:"Patient",a:"der"},{w:"Laborantin",a:"die"},{w:"Krankenpfleger",a:"der"},
+  {w:"Blut",a:"das"},{w:"Tafel",a:"die"},{w:"Fenster",a:"das"},{w:"Freizeit",a:"die"},
+  {w:"Experiment",a:"das"},{w:"Tipp",a:"der"},{w:"App",a:"die"},{w:"Zucker",a:"der"},
+  {w:"Küche",a:"die"},{w:"Sofa",a:"das"},{w:"Kaffee",a:"der"},{w:"Park",a:"der"},
+  {w:"Bus",a:"der"},{w:"Schokolade",a:"die"},{w:"Lebensmittel (Plural)",a:"die"},{w:"Getränke (Plural)",a:"die"},
+  {w:"Hustensaft",a:"der"},{w:"Glas",a:"das"},{w:"Wasser",a:"das"},{w:"Alkohol",a:"der"}
+];
+let k8 = [...rawK8];
+function shuffleK8() { shuffle(k8); renderRadioQuiz(k8, 'form-k8'); document.getElementById('score-k8').innerText='–'; }
+function checkK8() { checkRadioQuiz(k8, 'form-k8', 'score-k8'); }
+shuffleK8();
 </script>
 
 </body>
